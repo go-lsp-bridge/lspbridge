@@ -1,0 +1,4 @@
+*.test
+cover.out
+*.cover
+coverage.txt
