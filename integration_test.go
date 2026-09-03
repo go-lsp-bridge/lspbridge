@@ -8,6 +8,7 @@ import (
 	"os"
 	"os/exec"
 	"path/filepath"
+	"runtime"
 	"strings"
 	"testing"
 	"time"
@@ -139,7 +140,17 @@ func buildFakeLSP(t *testing.T) string {
 			return v
 		}
 	}
+	// The name needs the platform's executable suffix. `go build` adds ".exe"
+	// on Windows only in its DEFAULT naming -- "go build example/sam writes sam
+	// or sam.exe" -- and -o "forces build to write the resulting executable to
+	// the named output file", suffix and all. Without this the binary is
+	// written as "fake-lsp", Windows will not exec a file with no recognised
+	// extension, the pre-flight below skips the test, and the suite goes green
+	// while the whole spawn path goes unrun: 92.3% coverage instead of 100%.
 	out := filepath.Join(t.TempDir(), "fake-lsp")
+	if runtime.GOOS == "windows" {
+		out += ".exe"
+	}
 	build := exec.Command("go", "build", "-o", out, "./cmd/fake-lsp")
 	if buf, err := build.CombinedOutput(); err != nil {
 		t.Skipf("fake-lsp build failed (skipping) : %v\n%s", err, buf)
