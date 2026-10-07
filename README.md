@@ -4,7 +4,7 @@
 
 [![Docs](https://img.shields.io/badge/docs-mkdocs--material-4F46E5)](https://go-lsp-bridge.github.io/docs/)
 [![License](https://img.shields.io/badge/license-BSD--3--Clause-blue)](LICENSE)
-[![Go](https://img.shields.io/badge/go-1.26.4%2B-00ADD8)](https://go.dev/dl/)
+[![Go](https://img.shields.io/badge/go-1.27.1%2B-00ADD8)](https://go.dev/dl/)
 [![Coverage](https://img.shields.io/badge/coverage-100%25-1a7f37)](#tests--coverage)
 
 **A pure-Go (no cgo) bridge that relays JSON-RPC LSP traffic between a
